@@ -93,7 +93,7 @@ import Footer from '../components/Footer.astro';
             <input type="text" id="inlineNameInput" placeholder="Your name" style="padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
             <input type="tel" id="inlinePhoneInput" placeholder="Phone number" style="padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
             <input type="email" id="inlineEmailInput" placeholder="you@yourcompany.com" style="padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
-            <button id="inlineEmailBtn" class="btn btn-primary">Send My Report</button>
+            <button id="inlineEmailBtn" class="btn btn-primary" style="width:100%;display:flex;justify-content:center;align-items:center;">Send My Report</button>
           </div>
         </div>
       </div>
@@ -438,7 +438,7 @@ import Footer from '../components/Footer.astro';
     };
 
     try {
-      await fetch('https://cloud.activepieces.com/api/v1/webhooks/F395YJLAxb3CyhQV5Zmb9/test', {
+      await fetch('https://cloud.activepieces.com/api/v1/webhooks/F395YJLAxb3CyhQV5Zmb9', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, phone, results: resultsPayload }),

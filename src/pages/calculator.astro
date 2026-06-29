@@ -81,14 +81,7 @@ import Footer from '../components/Footer.astro';
           <span style="font-size:0.75rem;color:var(--text3);margin-top:4px;display:block;">Total monthly marketing investment</span>
         </div>
 
-        <div class="calc-field" style="display:flex;align-items:flex-start;gap:12px;">
-          <input type="checkbox" id="consentCheck" style="width:20px;height:20px;margin-top:2px;accent-color:var(--orange);">
-          <label for="consentCheck" style="font-size:0.95rem;color:var(--text2);line-height:1.4;cursor:pointer;">
-            I consent to receive email follow-up with my audit results, service updates, and occasional marketing from Plenum AI Systems. Reply STOP to opt out.
-          </label>
-        </div>
-
-        <button id="calcBtn" class="btn btn-primary" style="font-size:1.05rem;padding:14px 28px;align-self:flex-start;">
+        <button id="calcBtn" class="btn btn-primary" style="font-size:1.05rem;padding:14px 28px;align-self:center;">
           → Calculate My Revenue Leaks
         </button>
 
@@ -126,7 +119,7 @@ import Footer from '../components/Footer.astro';
   <div class="container">
     <div style="max-width:800px;margin:0 auto;">
       <div class="label">Your Audit Results</div>
-      <h2>Here's what's <span class="orange">bleeding out</span> of your funnel</h2>
+      <h2>🩸 Here's what's <span class="orange">bleeding out</span> of your funnel</h2>
       <p>Based on your numbers, we found the following revenue leaks. Each one is fixable — and we fix them every day.</p>
 
       <!-- Bleed Dashboard -->
@@ -268,7 +261,7 @@ import Footer from '../components/Footer.astro';
     const estimates = parseFloat(document.getElementById('estimates').value) || 0;
     const sold = parseFloat(document.getElementById('sold').value) || 0;
     const ticket = parseFloat(document.getElementById('ticket').value) || 0;
-    const speedChecked = document.getElementById('speedCheck').checked;
+    // No checkbox needed — response lag is inferred from booking rate
 
     // Booking Rate
     const bookingRate = leads > 0 ? (booked / leads) * 100 : 0;

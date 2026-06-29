@@ -428,18 +428,26 @@ import Footer from '../components/Footer.astro';
     inlineEmail.innerHTML = '<p style="color:var(--text);font-weight:600;">⏳ Sending your report...</p>';
 
     const r = calculate();
+
+    // Format values for the report
+    const fmtPct = (n) => n.toFixed(1) + '%';
+    const fmtMoney = (n) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
     const resultsPayload = {
-      bookingRate: r.bookingRate,
-      bookingDollarLeak: r.bookingDollarLeak,
-      closeRate: r.closeRate,
-      graveyardValue: r.graveyardValue,
-      responseLagDollarLeak: r.responseLagLeak,
-      responseLagPercent: r.bookingGap,
-      reviewGapValue: r.reviewGapValue,
+      name: name,
+      email: email,
+      phone: phone || '',
+      bookingRate: fmtPct(r.bookingRate),
+      bookingDollarLeak: fmtMoney(r.bookingDollarLeak),
+      closeRate: fmtPct(r.closeRate),
+      graveyardValue: fmtMoney(r.graveyardValue),
+      responseLagDollarLeak: fmtMoney(r.responseLagLeak),
+      responseLagPercent: fmtPct(r.bookingGap),
+      reviewGapValue: fmtMoney(r.reviewGapValue),
       missingReviews: r.missingReviews,
       actualReviews: r.actualReviews,
       potentialReviews: r.potentialReviews,
-      totalBleed: r.totalBleed,
+      totalBleed: fmtMoney(r.totalBleed),
     };
 
     try {

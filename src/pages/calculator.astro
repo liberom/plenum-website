@@ -81,7 +81,7 @@ import Footer from '../components/Footer.astro';
           <span style="font-size:0.75rem;color:var(--text3);margin-top:4px;display:block;">Total monthly marketing investment</span>
         </div>
 
-        <button id="calcBtn" class="btn btn-primary" style="font-size:1.05rem;padding:14px 28px;align-self:center;">
+        <button id="calcBtn" class="btn btn-primary" style="font-size:1.05rem;padding:14px 28px;align-self:center;width:100%;justify-content:center;">
           → Calculate My Revenue Leaks
         </button>
 
@@ -123,7 +123,7 @@ import Footer from '../components/Footer.astro';
       <p>Based on your numbers, we found the following revenue leaks. Each one is fixable — and we fix them every day.</p>
 
       <!-- Bleed Dashboard -->
-      <div class="bleed-dashboard" style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+      <div class="bleed-dashboard" style="margin-top:32px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
         <div class="card" style="border-left:4px solid var(--orange);">
           <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Missed Calls Leak</div>
           <div id="bookingLeakVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:var(--orange);font-weight:600;">$0</div>
@@ -143,12 +143,15 @@ import Footer from '../components/Footer.astro';
         </div>
 
         <div class="card" style="border-left:4px solid #3498db;">
-          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Review Gap</div>
+          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Estimated Review Gap</div>
           <div id="reviewGapVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:#3498db;font-weight:600;">$0</div>
           <div id="reviewGapSub" style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Missing reviews = lost local visibility</div>
         </div>
+      </div>
 
-        <div class="card" style="border-left:4px solid var(--orange);grid-column:1/-1;background:var(--surface-2);">
+      <!-- Total -->
+      <div style="margin-top:16px;">
+        <div class="card" style="border-left:4px solid var(--orange);background:var(--surface-2);">
           <div style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Total Monthly Conversion Gap</div>
           <div id="totalBleedVal" style="font-family:'JetBrains Mono',monospace;font-size:2.2rem;color:var(--orange);font-weight:700;">$0</div>
           <div style="font-size:0.85rem;color:var(--text2);margin-top:6px;">Every month, this much revenue slips through the cracks</div>
@@ -160,7 +163,7 @@ import Footer from '../components/Footer.astro';
         <h3 style="margin-bottom:20px;">The 4 Leak Holes</h3>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-            <div class="card-icon orange" style="margin-bottom:0;flex-shrink:0;">📞</div>
+            <div class="card-icon orange" style="margin-bottom:0;flex-shrink:0;width:52px;height:52px;font-size:1.4rem;">📞</div>
             <div style="flex:1;min-width:200px;">
               <div style="font-weight:600;color:var(--text);">Front-Desk Drop-Off</div>
               <div id="bookingRateText" style="font-size:0.85rem;color:var(--text2);margin-top:4px;">Booking Rate: —</div>
@@ -169,7 +172,7 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-            <div class="card-icon" id="responseLagIcon" style="margin-bottom:0;flex-shrink:0;background:var(--green-bg);">⚡</div>
+            <div class="card-icon" id="responseLagIcon" style="margin-bottom:0;flex-shrink:0;background:var(--green-bg);width:52px;height:52px;font-size:1.4rem;">⚡</div>
             <div style="flex:1;min-width:200px;">
               <div style="font-weight:600;color:var(--text);">Response Lag</div>
               <div id="responseLagText" style="font-size:0.85rem;color:var(--text2);margin-top:4px;">Inferred from your booking rate</div>
@@ -178,7 +181,7 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-            <div class="card-icon blue" style="margin-bottom:0;flex-shrink:0;">💀</div>
+            <div class="card-icon blue" style="margin-bottom:0;flex-shrink:0;width:52px;height:52px;font-size:1.4rem;">💀</div>
             <div style="flex:1;min-width:200px;">
               <div style="font-weight:600;color:var(--text);">Dead Estimate Graveyard</div>
               <div id="closeRateText" style="font-size:0.85rem;color:var(--text2);margin-top:4px;">Close Rate: —</div>
@@ -187,9 +190,9 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-            <div class="card-icon silver" id="reviewGapIcon" style="margin-bottom:0;flex-shrink:0;background:rgba(52,152,219,0.08);color:#3498db;">⭐</div>
+            <div class="card-icon silver" id="reviewGapIcon" style="margin-bottom:0;flex-shrink:0;background:rgba(52,152,219,0.08);color:#3498db;width:52px;height:52px;font-size:1.4rem;">⭐</div>
             <div style="flex:1;min-width:200px;">
-              <div style="font-weight:600;color:var(--text);">Review Gap</div>
+              <div style="font-weight:600;color:var(--text);">Estimated Review Gap</div>
               <div id="reviewGapText" style="font-size:0.85rem;color:var(--text2);margin-top:4px;">You're missing 5-star reviews on completed jobs</div>
             </div>
             <div id="reviewGapBadge" style="padding:6px 14px;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;background:var(--surface-2);color:var(--text3);">—</div>

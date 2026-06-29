@@ -1,0 +1,21 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<nav>
+  <div class="container">
+    <a href="/" class="nav-logo">
+      <span class="hex-badge">
+        <img src="/assets/logo.png" alt="Plenum AI Systems">
+      </span>
+      <span class="nav-plenum">Plenum</span><em>AI</em><span class="systems">Systems</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/who-we-serve" class={currentPath.startsWith('/who-we-serve') ? 'active' : ''}>Who We Serve</a></li>
+      <li><a href="/services" class={currentPath.startsWith('/services') ? 'active' : ''}>Services</a></li>
+      <li><a href="/about" class={currentPath.startsWith('/about') ? 'active' : ''}>About</a></li>
+      <li><a href="/blog" class={currentPath.startsWith('/blog') ? 'active' : ''}>Blog</a></li>
+      <li><a href="/contact" class={currentPath.startsWith('/contact') ? 'active' : ''}>Contact</a></li>
+    </ul>
+  </div>
+</nav>

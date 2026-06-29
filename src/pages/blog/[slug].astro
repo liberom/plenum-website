@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout title={`${post.data.title} — Plenum AI Systems`}
+  description={post.data.description}
+  canonical={`https://plenumaisystems.com/blog/${post.id}`}>
+
+<Nav />
+
+<section class="page-hero">
+  <div class="container">
+    <div class="label">Blog</div>
+    <h1>{post.data.title}</h1>
+    <p>{post.data.description}</p>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text3);margin-top:12px;">
+      {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="legal-content" style="margin-top:40px;">
+      <Content />
+    </div>
+  </div>
+</section>
+
+<div style="text-align:center;margin-top:40px;">
+  <a href="/blog" class="btn btn-ghost">← Back to all posts</a>
+</div>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to put this into practice?</h2>
+    <p>Let's audit your funnel and see where AI can recover lost revenue.</p>
+    <a href="/contact" class="btn btn-primary">→ Book a Free Audit</a>
+  </div>
+</section>
+
+<Footer />
+
+</BaseLayout>

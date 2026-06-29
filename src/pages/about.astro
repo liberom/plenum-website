@@ -1,34 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About — Plenum AI Systems</title>
-  <meta name="description" content="Plenum AI Systems, a Lead Continuity LLC company, builds self-hosted AI revenue infrastructure for home service businesses. Founded by Vinicius Libero Moreira.">
-  <meta property="og:title" content="About — Plenum AI Systems">
-  <meta property="og:description" content="Private AI infrastructure built by an engineer, not an agency.">
-  <meta property="og:type" content="website">
-  <link rel="canonical" href="https://plenumaisystems.com/about.html">
-  <link rel="stylesheet" href="assets/styles.css">
-  <link rel="icon" href="assets/logo.png" type="image/png">
-</head>
-
-<body>
-  <nav>
-    <div class="container">
-      <a href="index.html" class="nav-logo">
-        <span class="hex-badge"><img src="assets/logo.png" alt="Plenum AI Systems"></span>
-        <span class="nav-plenum">Plenum</span><em>AI</em><span class="systems">Systems</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="who-we-serve.html">Who We Serve</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+<BaseLayout
+  title="About — Plenum AI Systems"
+  description="Plenum AI Systems, a Lead Continuity LLC company, builds self-hosted AI revenue infrastructure for home service businesses. Founded by Vinicius Libero Moreira."
+  ogTitle="About — Plenum AI Systems"
+  ogDescription="Private AI infrastructure built by an engineer, not an agency."
+  canonical="https://plenumaisystems.com/about"
+>
+  <Nav />
 
   <!-- Page Hero -->
   <section class="page-hero">
@@ -44,7 +27,7 @@
     <div class="container">
       <div class="about-grid">
         <div class="about-photo">
-          <img src="assets/headshot.webp" alt="Vinicius Libero Moreira — Founder, Plenum AI Systems" loading="lazy">
+          <img src="/assets/headshot.webp" alt="Vinicius Libero Moreira — Founder, Plenum AI Systems" loading="lazy">
         </div>
         <div>
           <p style="margin-top:0;">
@@ -159,7 +142,7 @@
             30 N Gould St Ste N<br>
             Sheridan, WY 82801<br>
             United States<br><br>
-            📞 +1 (307) 296-4737<br>
+            � +1 (307) 296-4737<br>
             ✉️ <a href="mailto:contact@plenumaisystems.com">contact@plenumaisystems.com</a>
           </p>
         </div>
@@ -172,26 +155,10 @@
     <div class="container">
       <h2>Want to know who you're working with?</h2>
       <p>I'm transparent about what I build and how I build it. If we're a fit, great. If not, I'll point you in the right direction.</p>
-      <a href="contact.html" class="btn btn-primary">→ Get in Touch</a>
-      <a href="services.html" class="btn btn-blue">View Services</a>
+      <a href="/contact" class="btn btn-primary">→ Get in Touch</a>
+      <a href="/services" class="btn btn-blue">View Services</a>
     </div>
   </section>
 
-  <footer>
-    <div class="container">
-      <div class="footer-links">
-        <a href="who-we-serve.html">Who We Serve</a>
-        <a href="services.html">Services</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="terms.html">Terms of Service</a>
-        <a href="privacy.html">Privacy Policy</a>
-      </div>
-      <p>© 2026 Lead Continuity LLC DBA Plenum AI Systems</p>
-      <p class="footer-legal">
-        30 N Gould St Ste N, Sheridan, WY 82801 · +1 (307) 296-4737 · <a href="mailto:contact@plenumaisystems.com">contact@plenumaisystems.com</a>
-      </p>
-    </div>
-  </footer>
-</body>
-</html>
+  <Footer />
+</BaseLayout>

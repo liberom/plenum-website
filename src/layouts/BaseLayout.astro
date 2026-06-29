@@ -1,0 +1,39 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  canonical?: string;
+}
+
+const {
+  title,
+  description = 'Plenum AI Systems, a Lead Continuity LLC company, builds AI systems that follow up faster, reactivate dead leads, and turn more interest into booked appointments for home service businesses.',
+  ogTitle,
+  ogDescription,
+  canonical,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+
+  <meta property="og:title" content={ogTitle || title}>
+  <meta property="og:description" content={ogDescription || description}>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://plenumaisystems.com">
+  {canonical && <link rel="canonical" href={canonical}>}
+
+  <link rel="stylesheet" href="/styles/global.css">
+  <link rel="icon" href="/assets/logo.png" type="image/png">
+</head>
+<body>
+  <slot />
+</body>
+</html>

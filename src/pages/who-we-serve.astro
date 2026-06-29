@@ -1,34 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Who We Serve — Plenum AI Systems</title>
-  <meta name="description" content="Plenum AI Systems builds AI growth infrastructure for home service businesses: HVAC, plumbing, roofing, electrical, landscaping, pest control, and more.">
-  <meta property="og:title" content="Who We Serve — Plenum AI Systems">
-  <meta property="og:description" content="AI systems built for home service businesses that run on booked appointments and customer trust.">
-  <meta property="og:type" content="website">
-  <link rel="canonical" href="https://plenumaisystems.com/who-we-serve.html">
-  <link rel="stylesheet" href="assets/styles.css">
-  <link rel="icon" href="assets/logo.png" type="image/png">
-</head>
-
-<body>
-  <nav>
-    <div class="container">
-      <a href="index.html" class="nav-logo">
-        <span class="hex-badge"><img src="assets/logo.png" alt="Plenum AI Systems"></span>
-        <span class="nav-plenum">Plenum</span><em>AI</em><span class="systems">Systems</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="who-we-serve.html">Who We Serve</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+<BaseLayout
+  title="Who We Serve — Plenum AI Systems"
+  description="Plenum AI Systems builds AI growth infrastructure for home service businesses: HVAC, plumbing, roofing, electrical, landscaping, pest control, and more."
+  ogTitle="Who We Serve — Plenum AI Systems"
+  ogDescription="AI systems built for home service businesses that run on booked appointments and customer trust."
+  canonical="https://plenumaisystems.com/who-we-serve"
+>
+  <Nav />
 
   <!-- Page Hero -->
   <section class="page-hero">
@@ -66,7 +49,7 @@
       <div class="feature-grid">
         <div class="card" style="display:flex;align-items:center;justify-content:center;min-height:280px;">
           <div style="text-align:center;">
-            <div style="font-size:3rem;margin-bottom:12px;">🔧</div>
+            <div style="font-size:3rem;margin-bottom:12px;">�</div>
             <h3>Plumbing</h3>
             <p style="font-size:0.85rem;margin-top:8px;"><strong>Emergency repairs · Drain cleaning · Water heaters · Installations</strong></p>
           </div>
@@ -108,7 +91,7 @@
       <div class="feature-grid">
         <div class="card" style="display:flex;align-items:center;justify-content:center;min-height:280px;">
           <div style="text-align:center;">
-            <div style="font-size:3rem;margin-bottom:12px;">⚡</div>
+            <div style="font-size:3rem;margin-bottom:12px;">�</div>
             <h3>Electrical</h3>
             <p style="font-size:0.85rem;margin-top:8px;"><strong>Repairs · Panel upgrades · Installations · Safety inspections</strong></p>
           </div>
@@ -135,7 +118,7 @@
         </div>
         <div class="card" style="display:flex;align-items:center;justify-content:center;min-height:280px;">
           <div style="text-align:center;">
-            <div style="font-size:3rem;margin-bottom:12px;">🌿</div>
+            <div style="font-size:3rem;margin-bottom:12px;">�</div>
             <h3>Landscaping</h3>
             <p style="font-size:0.85rem;margin-top:8px;"><strong>Lawn care · Hardscaping · Tree services · Snow removal</strong></p>
           </div>
@@ -150,7 +133,7 @@
       <div class="feature-grid">
         <div class="card" style="display:flex;align-items:center;justify-content:center;min-height:280px;">
           <div style="text-align:center;">
-            <div style="font-size:3rem;margin-bottom:12px;">🐀</div>
+            <div style="font-size:3rem;margin-bottom:12px;">�</div>
             <h3>Pest Control</h3>
             <p style="font-size:0.85rem;margin-top:8px;"><strong>Inspections · Treatments · Prevention · Emergency removal</strong></p>
           </div>
@@ -175,7 +158,7 @@
           The mechanics are the same across home service businesses. Leads that go cold, calls that go unanswered, customers who drift off. If you run a home service business and any of that sounds familiar, the systems work the same for you.
         </p>
         <div style="margin-top:32px;">
-          <a href="contact.html" class="btn btn-primary">→ Book a Free Audit</a>
+<a href="/contact" class="btn btn-primary">→ Book a Free Audit</a>
         </div>
       </div>
     </div>
@@ -186,26 +169,10 @@
     <div class="container">
       <h2>Cold leads, meet warm system.</h2>
       <p>Your next customer may already be in your database, calling your office, or clicking your ad. Plenum AI Systems makes sure they don't disappear.</p>
-      <a href="contact.html" class="btn btn-primary">→ Book a Free Audit</a>
-      <a href="services.html" class="btn btn-blue">See Our Services</a>
+      <a href="/contact" class="btn btn-primary">→ Book a Free Audit</a>
+      <a href="/services" class="btn btn-blue">See Our Services</a>
     </div>
   </section>
 
-  <footer>
-    <div class="container">
-      <div class="footer-links">
-        <a href="who-we-serve.html">Who We Serve</a>
-        <a href="services.html">Services</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="terms.html">Terms of Service</a>
-        <a href="privacy.html">Privacy Policy</a>
-      </div>
-      <p>© 2026 Lead Continuity LLC DBA Plenum AI Systems</p>
-      <p class="footer-legal">
-        30 N Gould St Ste N, Sheridan, WY 82801 · +1 (307) 296-4737 · <a href="mailto:contact@plenumaisystems.com">contact@plenumaisystems.com</a>
-      </p>
-    </div>
-  </footer>
-</body>
-</html>
+  <Footer />
+</BaseLayout>

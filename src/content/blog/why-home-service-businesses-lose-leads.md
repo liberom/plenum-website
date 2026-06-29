@@ -19,6 +19,8 @@ A typical home service funnel over 30 days looks like this:
 - **23 actually booked** — 9% conversion from lead to appointment
 - **177 leads went cold** — waiting for a reply that never came
 
+**Sources:** [Lead Response Management Study](https://www.leadresponsemanagement.org/lrm_study/) · [HBR: The Short Life of Online Sales Leads](https://hbr.org/2011/03/the-short-life-of-online-sales-leads)
+
 ## Why It Happens
 
 The average business takes **42 hours** to respond to a lead. By then, the homeowner has already bought from someone else. Meanwhile, their CRM database is full of contacts they paid to acquire — and never contacted again.

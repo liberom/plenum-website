@@ -13,9 +13,11 @@ const currentPath = Astro.url.pathname;
     <ul class="nav-links">
       <li><a href="/who-we-serve" class={currentPath.startsWith('/who-we-serve') ? 'active' : ''}>Who We Serve</a></li>
       <li><a href="/services" class={currentPath.startsWith('/services') ? 'active' : ''}>Services</a></li>
+      <li><a href="/calculator" class={currentPath.startsWith('/calculator') ? 'active' : ''}>Free Audit</a></li>
       <li><a href="/about" class={currentPath.startsWith('/about') ? 'active' : ''}>About</a></li>
       <li><a href="/blog" class={currentPath.startsWith('/blog') ? 'active' : ''}>Blog</a></li>
       <li><a href="/contact" class={currentPath.startsWith('/contact') ? 'active' : ''}>Contact</a></li>
+      <li><a href="/sms" class={currentPath.startsWith('/sms') ? 'active' : ''}>SMS Program</a></li>
     </ul>
   </div>
 </nav>

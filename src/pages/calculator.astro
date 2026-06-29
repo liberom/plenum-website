@@ -1,0 +1,430 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="HVAC Leaky Bucket Audit Calculator — Plenum AI Systems"
+  description="Find out how much revenue your HVAC business is losing every month. Our free Leaky Bucket Audit calculator reveals the hidden gaps in your lead conversion funnel."
+  canonical="https://plenumaisystems.com/calculator">
+
+<Nav />
+
+<section class="page-hero">
+  <div class="container">
+    <div class="label">Free Revenue Audit Tool</div>
+    <h1>Where is your money <span class="better-highlight">leaking?</span></h1>
+    <p class="hero-sub">
+      Most HVAC contractors are losing $10,000+ per month from leads they already paid for. Plug in your numbers and find out exactly where your funnel is broken.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val"><span class="orange">400%</span></div>
+        <div class="hero-stat-lbl">Drop in connect rate after 5 min</div>
+      </div>
+      <div>
+        <div class="hero-stat-val"><span class="orange">80%</span></div>
+        <div class="hero-stat-lbl">Of leads never followed up</div>
+      </div>
+      <div>
+        <div class="hero-stat-val"><span class="orange">$10K+</span></div>
+        <div class="hero-stat-lbl">Avg monthly revenue leak</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="calculator">
+  <div class="container">
+    <div style="max-width:720px;margin:0 auto;">
+      <div class="label">The Calculator</div>
+      <h2>Enter your numbers</h2>
+      <p>Fill in your monthly metrics below. Don't overthink it — estimates are fine. We'll show you where the money's escaping.</p>
+
+      <div class="calc-form" style="margin-top:32px;display:flex;flex-direction:column;gap:20px;">
+        <div class="calc-field">
+          <label class="label" for="leads">Total Inbound Opportunities (Leads)</label>
+          <input type="number" id="leads" min="0" placeholder="e.g. 120" style="width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
+          <span style="font-size:0.75rem;color:var(--text3);margin-top:4px;display:block;">All leads captured — calls, forms, walk-ins</span>
+        </div>
+
+        <div class="calc-field">
+          <label class="label" for="booked">Total Booked Calls</label>
+          <input type="number" id="booked" min="0" placeholder="e.g. 72" style="width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
+          <span style="font-size:0.75rem;color:var(--text3);margin-top:4px;display:block;">Leads that turned into scheduled appointments</span>
+        </div>
+
+        <div class="calc-field">
+          <label class="label" for="estimates">Total Estimates Given</label>
+          <input type="number" id="estimates" min="0" placeholder="e.g. 35" style="width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
+          <span style="font-size:0.75rem;color:var(--text3);margin-top:4px;display:block;">Quotes or proposals delivered to homeowners</span>
+        </div>
+
+        <div class="calc-field">
+          <label class="label" for="sold">Total Jobs Sold</label>
+          <input type="number" id="sold" min="0" placeholder="e.g. 12" style="width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
+          <span style="font-size:0.75rem;color:var(--text3);margin-top:4px;display:block;">Estimates that became paying jobs</span>
+        </div>
+
+        <div class="calc-field">
+          <label class="label" for="ticket">Avg. Job Ticket Value ($)</label>
+          <input type="number" id="ticket" min="0" placeholder="e.g. 450" style="width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
+          <span style="font-size:0.75rem;color:var(--text3);margin-top:4px;display:block;">Average revenue per completed job</span>
+        </div>
+
+        <div class="calc-field">
+          <label class="label" for="spend">Monthly Ad/Marketing Spend ($)</label>
+          <input type="number" id="spend" min="0" placeholder="e.g. 3000" style="width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
+          <span style="font-size:0.75rem;color:var(--text3);margin-top:4px;display:block;">Total monthly marketing investment</span>
+        </div>
+
+        <div class="calc-field" style="display:flex;align-items:flex-start;gap:12px;">
+          <input type="checkbox" id="speedCheck" style="width:20px;height:20px;margin-top:2px;accent-color:var(--orange);">
+          <label for="speedCheck" style="font-size:0.95rem;color:var(--text2);line-height:1.4;cursor:pointer;">
+            Yes — we respond to all web forms within 5 minutes
+          </label>
+        </div>
+
+        <button id="calcBtn" class="btn btn-primary" style="font-size:1.05rem;padding:14px 28px;align-self:flex-start;">
+          → Calculate My Revenue Leaks
+        </button>
+
+        <!-- Inline email form -->
+        <div id="inlineEmail" style="display:none;margin-top:16px;padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);">
+          <p style="font-weight:600;color:var(--text);margin-bottom:4px;">Enter your email to see your results</p>
+          <p style="font-size:0.85rem;color:var(--text3);margin-bottom:16px;">We'll send you a detailed breakdown plus your audit results.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <input type="email" id="inlineEmailInput" placeholder="you@yourcompany.com" style="flex:1;min-width:200px;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
+            <button id="inlineEmailBtn" class="btn btn-primary">Show My Results</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Email Gate Modal -->
+<div id="emailModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:40px;max-width:480px;width:100%;position:relative;">
+    <button id="closeModal" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text3);font-size:1.5rem;cursor:pointer;line-height:1;">&times;</button>
+    <div style="font-size:2rem;margin-bottom:12px;">🔒</div>
+    <h3 style="font-size:1.4rem;margin-bottom:8px;">Almost there</h3>
+    <p style="color:var(--text2);margin-bottom:24px;line-height:1.5;">Enter your email to unlock your full Leaky Bucket Audit results. We'll also send you a detailed breakdown you can share with your team.</p>
+    <input type="email" id="modalEmailInput" placeholder="you@yourcompany.com" style="width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;margin-bottom:16px;">
+    <button id="modalSubmitBtn" class="btn btn-primary" style="width:100%;text-align:center;">Show My Results</button>
+    <p style="font-size:0.75rem;color:var(--text3);margin-top:12px;text-align:center;">No spam. We respect your inbox.</p>
+  </div>
+</div>
+
+<!-- Results Section (hidden until email submitted) -->
+<section id="resultsSection" style="display:none;">
+  <div class="container">
+    <div style="max-width:800px;margin:0 auto;">
+      <div class="label">Your Audit Results</div>
+      <h2>Here's what's <span class="orange">bleeding out</span> of your funnel</h2>
+      <p>Based on your numbers, we found the following revenue leaks. Each one is fixable — and we fix them every day.</p>
+
+      <!-- Bleed Dashboard -->
+      <div class="bleed-dashboard" style="margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+        <div class="card" style="border-left:4px solid var(--orange);">
+          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Missed Calls Leak</div>
+          <div id="bookingLeakVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:var(--orange);font-weight:600;">$0</div>
+          <div style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Revenue lost from unbooked calls</div>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--blue);">
+          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Dead Estimate Graveyard</div>
+          <div id="graveyardVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:var(--blue);font-weight:600;">$0</div>
+          <div style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Revenue left in "Unclosed Quote" desert</div>
+        </div>
+
+        <div id="speedLeakCard" class="card" style="border-left:4px solid #e74c3c;display:none;">
+          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Speed-to-Lead Loss</div>
+          <div id="speedLeakVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:#e74c3c;font-weight:600;">$0</div>
+          <div style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Estimated loss from slow response</div>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--orange);grid-column:1/-1;background:var(--surface-2);">
+          <div style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Total Monthly Conversion Gap</div>
+          <div id="totalBleedVal" style="font-family:'JetBrains Mono',monospace;font-size:2.2rem;color:var(--orange);font-weight:700;">$0</div>
+          <div style="font-size:0.85rem;color:var(--text2);margin-top:6px;">Every month, this much revenue slips through the cracks</div>
+        </div>
+      </div>
+
+      <!-- Leak Holes -->
+      <div style="margin-top:48px;">
+        <h3 style="margin-bottom:20px;">The 4 Leak Holes</h3>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div class="card-icon orange" style="margin-bottom:0;flex-shrink:0;">📞</div>
+            <div style="flex:1;min-width:200px;">
+              <div style="font-weight:600;color:var(--text);">Front-Desk Drop-Off</div>
+              <div id="bookingRateText" style="font-size:0.85rem;color:var(--text2);margin-top:4px;">Booking Rate: —</div>
+            </div>
+            <div id="bookingRateBadge" style="padding:6px 14px;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;background:var(--surface-2);color:var(--text3);">—</div>
+          </div>
+
+          <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div class="card-icon" id="speedIcon" style="margin-bottom:0;flex-shrink:0;background:var(--green-bg);">⚡</div>
+            <div style="flex:1;min-width:200px;">
+              <div style="font-weight:600;color:var(--text);">Response Lag</div>
+              <div id="speedText" style="font-size:0.85rem;color:var(--text2);margin-top:4px;">Checking your response time...</div>
+            </div>
+            <div id="speedBadge" style="padding:6px 14px;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;background:var(--green-bg);color:var(--green);">—</div>
+          </div>
+
+          <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div class="card-icon blue" style="margin-bottom:0;flex-shrink:0;">💀</div>
+            <div style="flex:1;min-width:200px;">
+              <div style="font-weight:600;color:var(--text);">Dead Estimate Graveyard</div>
+              <div id="closeRateText" style="font-size:0.85rem;color:var(--text2);margin-top:4px;">Close Rate: —</div>
+            </div>
+            <div id="closeRateBadge" style="padding:6px 14px;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;background:var(--surface-2);color:var(--text3);">—</div>
+          </div>
+
+          <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div class="card-icon silver" style="margin-bottom:0;flex-shrink:0;">🗺️</div>
+            <div style="flex:1;min-width:200px;">
+              <div style="font-weight:600;color:var(--text);">Invisible Map Profile</div>
+              <div style="font-size:0.85rem;color:var(--text2);margin-top:4px;">Google Business Profile not ranking for local searches</div>
+            </div>
+            <div style="padding:6px 14px;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;background:rgba(160,160,160,0.15);color:var(--text3);">UNKNOWN</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="delusion">
+  <div class="container">
+    <div style="max-width:760px;margin:0 auto;">
+      <div class="label">The Lead-Buying Delusion</div>
+      <h2>More leads won't fix a broken bucket</h2>
+      <p style="margin-top:16px;">
+        Here's what most HVAC contractors do: they notice bookings are down, so they pour more money into ads. More leads come in. The same leaks swallow them. The bucket never fills — it just gets more expensive to fill.
+      </p>
+      <p style="margin-top:16px;">
+        The problem was never lead volume. It was <strong>conversion infrastructure</strong>. Every lead that goes unanswered, every estimate that ghosts you, every call that rings out — that's not a marketing problem. That's a follow-up failure.
+      </p>
+      <p style="margin-top:16px;">
+        Plenum AI Systems plugs the leaks. We respond to leads in under 60 seconds, reactivate dead estimates, recover missed calls, and turn your existing pipeline into booked revenue — without spending another dollar on ads.
+      </p>
+      <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="/contact" class="btn btn-primary">→ Let's Fix Your Funnel</a>
+        <a href="/services" class="btn btn-ghost">See Our Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Ready to stop the bleed?</h2>
+    <p>We'll audit your entire funnel, show you exactly where the money's going, and build the AI infrastructure to plug every leak.</p>
+    <a href="/contact" class="btn btn-primary">→ Book a Free Audit</a>
+    <a href="/services" class="btn btn-blue">See Our Services</a>
+  </div>
+</section>
+
+<Footer />
+
+<script>
+  // State
+  let emailSubmitted = false;
+  let userEmail = '';
+
+  // DOM refs
+  const calcBtn = document.getElementById('calcBtn');
+  const emailModal = document.getElementById('emailModal');
+  const closeModal = document.getElementById('closeModal');
+  const modalEmailInput = document.getElementById('modalEmailInput');
+  const modalSubmitBtn = document.getElementById('modalSubmitBtn');
+  const inlineEmail = document.getElementById('inlineEmail');
+  const inlineEmailInput = document.getElementById('inlineEmailInput');
+  const inlineEmailBtn = document.getElementById('inlineEmailBtn');
+  const resultsSection = document.getElementById('resultsSection');
+
+  // Format currency
+  function fmt(n) {
+    return '$' + Math.round(n).toLocaleString('en-US');
+  }
+
+  // Calculate
+  function calculate() {
+    const leads = parseFloat(document.getElementById('leads').value) || 0;
+    const booked = parseFloat(document.getElementById('booked').value) || 0;
+    const estimates = parseFloat(document.getElementById('estimates').value) || 0;
+    const sold = parseFloat(document.getElementById('sold').value) || 0;
+    const ticket = parseFloat(document.getElementById('ticket').value) || 0;
+    const speedChecked = document.getElementById('speedCheck').checked;
+
+    // Booking Rate
+    const bookingRate = leads > 0 ? (booked / leads) * 100 : 0;
+
+    // Booking Dollar Leak
+    const targetBooked = leads * 0.8;
+    const bookingDollarLeak = Math.abs((targetBooked - Math.max(booked, targetBooked)) * ticket);
+
+    // Close Rate
+    const closeRate = estimates > 0 ? (sold / estimates) * 100 : 0;
+
+    // Graveyard Value
+    const targetSold = estimates * 0.45;
+    const graveyardValue = Math.abs((targetSold - Math.max(sold, targetSold)) * 9000);
+
+    // Speed to Lead Leak
+    const speedToLeadLeak = !speedChecked;
+    const speedLeakValue = speedToLeadLeak ? leads * 0.15 * ticket : 0;
+
+    // Total Bleed
+    const totalBleed = bookingDollarLeak + graveyardValue + speedLeakValue;
+
+    return {
+      leads, booked, estimates, sold, ticket,
+      bookingRate, bookingDollarLeak,
+      closeRate, graveyardValue,
+      speedToLeadLeak, speedLeakValue,
+      totalBleed
+    };
+  }
+
+  // Show results
+  function showResults() {
+    const r = calculate();
+
+    // Bleed Dashboard
+    document.getElementById('bookingLeakVal').textContent = fmt(r.bookingDollarLeak);
+    document.getElementById('graveyardVal').textContent = fmt(r.graveyardValue);
+    document.getElementById('totalBleedVal').textContent = fmt(r.totalBleed);
+
+    // Speed leak card
+    const speedCard = document.getElementById('speedLeakCard');
+    if (r.speedToLeadLeak) {
+      speedCard.style.display = 'block';
+      document.getElementById('speedLeakVal').textContent = fmt(r.speedLeakValue);
+    } else {
+      speedCard.style.display = 'none';
+    }
+
+    // Booking Rate
+    const bookingRateText = document.getElementById('bookingRateText');
+    const bookingRateBadge = document.getElementById('bookingRateBadge');
+    bookingRateText.textContent = `Booking Rate: ${r.bookingRate.toFixed(1)}% (healthy benchmark: 80%+)`;
+    if (r.bookingRate >= 80) {
+      bookingRateBadge.textContent = 'HEALTHY';
+      bookingRateBadge.style.background = 'var(--green-bg)';
+      bookingRateBadge.style.color = 'var(--green)';
+    } else {
+      bookingRateBadge.textContent = 'LEAKING';
+      bookingRateBadge.style.background = 'var(--orange-bg)';
+      bookingRateBadge.style.color = 'var(--orange)';
+    }
+
+    // Speed to Lead
+    const speedText = document.getElementById('speedText');
+    const speedBadge = document.getElementById('speedBadge');
+    const speedIcon = document.getElementById('speedIcon');
+    if (r.speedToLeadLeak) {
+      speedText.textContent = 'You do NOT respond within 5 minutes — leads are going cold';
+      speedBadge.textContent = 'LEAKING';
+      speedBadge.style.background = 'var(--orange-bg)';
+      speedBadge.style.color = 'var(--orange)';
+      speedIcon.style.background = 'var(--orange-bg)';
+    } else {
+      speedText.textContent = 'You respond within 5 minutes — speed-to-leak contained';
+      speedBadge.textContent = 'OK';
+      speedBadge.style.background = 'var(--green-bg)';
+      speedBadge.style.color = 'var(--green)';
+      speedIcon.style.background = 'var(--green-bg)';
+    }
+
+    // Close Rate
+    const closeRateText = document.getElementById('closeRateText');
+    const closeRateBadge = document.getElementById('closeRateBadge');
+    closeRateText.textContent = `Close Rate: ${r.closeRate.toFixed(1)}% (benchmark: 45%)`;
+    if (r.closeRate >= 45) {
+      closeRateBadge.textContent = 'HEALTHY';
+      closeRateBadge.style.background = 'var(--green-bg)';
+      closeRateBadge.style.color = 'var(--green)';
+    } else {
+      closeRateBadge.textContent = 'LEAKING';
+      closeRateBadge.style.background = 'var(--orange-bg)';
+      closeRateBadge.style.color = 'var(--orange)';
+    }
+
+    // Show results section
+    resultsSection.style.display = 'block';
+
+    // Scroll to results
+    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Handle calculate button
+  calcBtn.addEventListener('click', () => {
+    if (emailSubmitted) {
+      showResults();
+      return;
+    }
+    // Show inline email form
+    inlineEmail.style.display = 'block';
+    inlineEmail.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  // Handle inline email submit
+  inlineEmailBtn.addEventListener('click', () => {
+    const email = inlineEmailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      inlineEmailInput.style.borderColor = '#e74c3c';
+      inlineEmailInput.focus();
+      return;
+    }
+    userEmail = email;
+    emailSubmitted = true;
+    inlineEmail.innerHTML = '<p style="color:var(--green);font-weight:600;">✓ Email submitted. Calculating your results...</p>';
+    setTimeout(showResults, 500);
+  });
+
+  // Enter key on inline email
+  inlineEmailInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') inlineEmailBtn.click();
+  });
+
+  // Modal: close
+  closeModal.addEventListener('click', () => {
+    emailModal.style.display = 'none';
+  });
+
+  // Modal: close on backdrop click
+  emailModal.addEventListener('click', (e) => {
+    if (e.target === emailModal) emailModal.style.display = 'none';
+  });
+
+  // Modal: submit
+  modalSubmitBtn.addEventListener('click', () => {
+    const email = modalEmailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      modalEmailInput.style.borderColor = '#e74c3c';
+      modalEmailInput.focus();
+      return;
+    }
+    userEmail = email;
+    emailSubmitted = true;
+    emailModal.style.display = 'none';
+    showResults();
+  });
+
+  // Modal: enter key
+  modalEmailInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') modalSubmitBtn.click();
+  });
+
+  // Reset input border on typing
+  [inlineEmailInput, modalEmailInput].forEach(input => {
+    input.addEventListener('input', () => {
+      input.style.borderColor = 'var(--border)';
+    });
+  });
+</script>
+
+</BaseLayout>

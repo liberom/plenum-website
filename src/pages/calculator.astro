@@ -94,11 +94,13 @@ import Footer from '../components/Footer.astro';
 
         <!-- Inline email form -->
         <div id="inlineEmail" style="display:none;margin-top:16px;padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);">
-          <p style="font-weight:600;color:var(--text);margin-bottom:4px;">Enter your email to see your results</p>
-          <p style="font-size:0.85rem;color:var(--text3);margin-bottom:16px;">We'll send you a detailed breakdown plus your audit results.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <input type="email" id="inlineEmailInput" placeholder="you@yourcompany.com" style="flex:1;min-width:200px;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
-            <button id="inlineEmailBtn" class="btn btn-primary">Show My Results</button>
+          <p style="font-weight:600;color:var(--text);margin-bottom:4px;">Get your full report</p>
+          <p style="font-size:0.85rem;color:var(--text3);margin-bottom:16px;">We'll send a detailed breakdown to your email.</p>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <input type="text" id="inlineNameInput" placeholder="Your name" style="padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
+            <input type="tel" id="inlinePhoneInput" placeholder="Phone number" style="padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
+            <input type="email" id="inlineEmailInput" placeholder="you@yourcompany.com" style="padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-2);color:var(--text);font-size:1rem;font-family:inherit;">
+            <button id="inlineEmailBtn" class="btn btn-primary">Send My Report</button>
           </div>
         </div>
       </div>
@@ -375,17 +377,48 @@ import Footer from '../components/Footer.astro';
   });
 
   // Handle inline email submit
-  inlineEmailBtn.addEventListener('click', () => {
+  inlineEmailBtn.addEventListener('click', async () => {
+    const name = inlineNameInput.value.trim();
+    const phone = inlinePhoneInput.value.trim();
     const email = inlineEmailInput.value.trim();
+
+    if (!name) {
+      inlineNameInput.style.borderColor = '#e74c3c';
+      inlineNameInput.focus();
+      return;
+    }
     if (!email || !email.includes('@')) {
       inlineEmailInput.style.borderColor = '#e74c3c';
       inlineEmailInput.focus();
       return;
     }
+
     userEmail = email;
     emailSubmitted = true;
-    inlineEmail.innerHTML = '<p style="color:var(--green);font-weight:600;">✓ Email submitted. Calculating your results...</p>';
-    setTimeout(showResults, 500);
+    inlineEmail.innerHTML = '<p style="color:var(--text);font-weight:600;">⏳ Sending your report...</p>';
+
+    const resultsPayload = {
+      bookingRate: results.bookingRate || 0,
+      bookingDollarLeak: results.bookingDollarLeak || 0,
+      closeRate: results.closeRate || 0,
+      graveyardValue: results.graveyardValue || 0,
+      speedToLeadLeak: results.speedToLeadLeak || false,
+      speedLeakValue: results.speedLeakValue || 0,
+      totalBleed: results.totalBleed || 0,
+    };
+
+    try {
+      await fetch('https://cloud.activepieces.com/api/v1/webhooks/F395YJLAxb3CyhQV5Zmb9', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, results: resultsPayload }),
+      });
+      inlineEmail.innerHTML = '<p style="color:var(--green);font-weight:600;">✓ Report sent! Check your email.</p>';
+      setTimeout(showResults, 800);
+    } catch (err) {
+      inlineEmail.innerHTML = '<p style="color:var(--orange);font-weight:600;">Report saved! Results loading...</p>';
+      setTimeout(showResults, 800);
+    }
   });
 
   // Enter key on inline email

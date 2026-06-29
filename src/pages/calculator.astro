@@ -82,8 +82,8 @@ import Footer from '../components/Footer.astro';
         </div>
 
         <div class="calc-field" style="display:flex;align-items:flex-start;gap:12px;">
-          <input type="checkbox" id="speedCheck" style="width:20px;height:20px;margin-top:2px;accent-color:var(--orange);">
-          <label for="speedCheck" style="font-size:0.95rem;color:var(--text2);line-height:1.4;cursor:pointer;">
+          <input type="checkbox" id="consentCheck" style="width:20px;height:20px;margin-top:2px;accent-color:var(--orange);">
+          <label for="consentCheck" style="font-size:0.95rem;color:var(--text2);line-height:1.4;cursor:pointer;">
             I consent to receive email follow-up with my audit results, service updates, and occasional marketing from Plenum AI Systems. Reply STOP to opt out.
           </label>
         </div>
@@ -143,10 +143,16 @@ import Footer from '../components/Footer.astro';
           <div style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Revenue left in "Unclosed Quote" desert</div>
         </div>
 
-        <div id="speedLeakCard" class="card" style="border-left:4px solid #e74c3c;display:none;">
-          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Speed-to-Lead Loss</div>
-          <div id="speedLeakVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:#e74c3c;font-weight:600;">$0</div>
-          <div style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Estimated loss from slow response</div>
+        <div class="card" style="border-left:4px solid #9b59b6;">
+          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Response Lag</div>
+          <div id="responseLagVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:#9b59b6;font-weight:600;">$0</div>
+          <div style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Inferred from booking rate gap</div>
+        </div>
+
+        <div class="card" style="border-left:4px solid #3498db;">
+          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Review Gap</div>
+          <div id="reviewGapVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:#3498db;font-weight:600;">$0</div>
+          <div id="reviewGapSub" style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Missing reviews = lost local visibility</div>
         </div>
 
         <div class="card" style="border-left:4px solid var(--orange);grid-column:1/-1;background:var(--surface-2);">
@@ -170,12 +176,12 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-            <div class="card-icon" id="speedIcon" style="margin-bottom:0;flex-shrink:0;background:var(--green-bg);">⚡</div>
+            <div class="card-icon" id="responseLagIcon" style="margin-bottom:0;flex-shrink:0;background:var(--green-bg);">⚡</div>
             <div style="flex:1;min-width:200px;">
               <div style="font-weight:600;color:var(--text);">Response Lag</div>
-              <div id="speedText" style="font-size:0.85rem;color:var(--text2);margin-top:4px;">Checking your response time...</div>
+              <div id="responseLagText" style="font-size:0.85rem;color:var(--text2);margin-top:4px;">Inferred from your booking rate</div>
             </div>
-            <div id="speedBadge" style="padding:6px 14px;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;background:var(--green-bg);color:var(--green);">—</div>
+            <div id="responseLagBadge" style="padding:6px 14px;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;background:var(--green-bg);color:var(--green);">—</div>
           </div>
 
           <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
@@ -188,12 +194,12 @@ import Footer from '../components/Footer.astro';
           </div>
 
           <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-            <div class="card-icon silver" style="margin-bottom:0;flex-shrink:0;">🗺️</div>
+            <div class="card-icon silver" id="reviewGapIcon" style="margin-bottom:0;flex-shrink:0;background:rgba(52,152,219,0.08);color:#3498db;">⭐</div>
             <div style="flex:1;min-width:200px;">
-              <div style="font-weight:600;color:var(--text);">Invisible Map Profile</div>
-              <div style="font-size:0.85rem;color:var(--text2);margin-top:4px;">Google Business Profile not ranking for local searches</div>
+              <div style="font-weight:600;color:var(--text);">Review Gap</div>
+              <div id="reviewGapText" style="font-size:0.85rem;color:var(--text2);margin-top:4px;">You're missing 5-star reviews on completed jobs</div>
             </div>
-            <div style="padding:6px 14px;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;background:rgba(160,160,160,0.15);color:var(--text3);">UNKNOWN</div>
+            <div id="reviewGapBadge" style="padding:6px 14px;border-radius:var(--radius-full);font-size:0.8rem;font-weight:600;background:var(--surface-2);color:var(--text3);">—</div>
           </div>
         </div>
       </div>
@@ -272,26 +278,38 @@ import Footer from '../components/Footer.astro';
     const missedBooked = Math.max(0, targetBooked - booked);
     const bookingDollarLeak = missedBooked * ticket;
 
+    // Close Rate
+    const closeRate = estimates > 0 ? (sold / estimates) * 100 : 0;
+
     // Dead Estimate Graveyard: unclosed estimates at average system cost ($9,000)
     const targetSold = estimates * 0.45;
     const missedSold = Math.max(0, targetSold - sold);
     const graveyardValue = missedSold * 9000;
 
-    // Close Rate
-    const closeRate = estimates > 0 ? (sold / estimates) * 100 : 0;
+    // Response Lag: inferred from booking rate gap. Businesses responding within 5 min
+    // achieve 80%+ booking rates. Below that, every 10% gap ≈ 7% of leads lost to slow response.
+    const targetBookingRate = 80;
+    const bookingGap = Math.max(0, targetBookingRate - bookingRate);
+    const responseLagLeak = bookingGap > 0 ? (bookingGap / 10) * 0.07 * leads * ticket : 0;
 
-    // Speed to Lead Leak: 15% of leads go cold from slow response
-    const speedToLeadLeak = !speedChecked;
-    const speedLeakValue = speedToLeadLeak ? leads * 0.15 * ticket : 0;
+    // Review Gap: industry avg is 10% review capture (manual). Automation reaches 40%.
+    // Each missing review = lost local visibility. Conservative: each review drives ~$200 in organic value.
+    const manualReviewRate = 0.10;
+    const automatedReviewRate = 0.40;
+    const actualReviews = Math.round(sold * manualReviewRate);
+    const potentialReviews = Math.round(sold * automatedReviewRate);
+    const missingReviews = potentialReviews - actualReviews;
+    const reviewGapValue = missingReviews * 200;
 
     // Total Bleed
-    const totalBleed = bookingDollarLeak + graveyardValue + speedLeakValue;
+    const totalBleed = bookingDollarLeak + graveyardValue + responseLagLeak + reviewGapValue;
 
     return {
       leads, booked, estimates, sold, ticket,
       bookingRate, bookingDollarLeak,
       closeRate, graveyardValue,
-      speedToLeadLeak, speedLeakValue,
+      bookingGap, responseLagLeak,
+      actualReviews, potentialReviews, missingReviews, reviewGapValue,
       totalBleed
     };
   }
@@ -303,16 +321,12 @@ import Footer from '../components/Footer.astro';
     // Bleed Dashboard
     document.getElementById('bookingLeakVal').textContent = fmt(r.bookingDollarLeak);
     document.getElementById('graveyardVal').textContent = fmt(r.graveyardValue);
+    document.getElementById('responseLagVal').textContent = fmt(r.responseLagLeak);
+    document.getElementById('reviewGapVal').textContent = fmt(r.reviewGapValue);
     document.getElementById('totalBleedVal').textContent = fmt(r.totalBleed);
 
-    // Speed leak card
-    const speedCard = document.getElementById('speedLeakCard');
-    if (r.speedToLeadLeak) {
-      speedCard.style.display = 'block';
-      document.getElementById('speedLeakVal').textContent = fmt(r.speedLeakValue);
-    } else {
-      speedCard.style.display = 'none';
-    }
+    // Review gap subtitle
+    document.getElementById('reviewGapSub').textContent = `${r.missingReviews} missing reviews (${r.actualReviews} actual vs ${r.potentialReviews} potential)`;
 
     // Booking Rate
     const bookingRateText = document.getElementById('bookingRateText');
@@ -328,22 +342,22 @@ import Footer from '../components/Footer.astro';
       bookingRateBadge.style.color = 'var(--orange)';
     }
 
-    // Speed to Lead
-    const speedText = document.getElementById('speedText');
-    const speedBadge = document.getElementById('speedBadge');
-    const speedIcon = document.getElementById('speedIcon');
-    if (r.speedToLeadLeak) {
-      speedText.textContent = 'You do NOT respond within 5 minutes — leads are going cold';
-      speedBadge.textContent = 'LEAKING';
-      speedBadge.style.background = 'var(--orange-bg)';
-      speedBadge.style.color = 'var(--orange)';
-      speedIcon.style.background = 'var(--orange-bg)';
+    // Response Lag (inferred from booking rate gap)
+    const responseLagText = document.getElementById('responseLagText');
+    const responseLagBadge = document.getElementById('responseLagBadge');
+    const responseLagIcon = document.getElementById('responseLagIcon');
+    if (r.bookingGap > 0) {
+      responseLagText.textContent = `Booking rate is ${r.bookingRate.toFixed(1)}% — ${r.bookingGap.toFixed(1)}% below 80% benchmark. Slow response is likely a factor.`;
+      responseLagBadge.textContent = 'LEAKING';
+      responseLagBadge.style.background = 'var(--orange-bg)';
+      responseLagBadge.style.color = 'var(--orange)';
+      responseLagIcon.style.background = 'var(--orange-bg)';
     } else {
-      speedText.textContent = 'You respond within 5 minutes — speed-to-leak contained';
-      speedBadge.textContent = 'OK';
-      speedBadge.style.background = 'var(--green-bg)';
-      speedBadge.style.color = 'var(--green)';
-      speedIcon.style.background = 'var(--green-bg)';
+      responseLagText.textContent = `Booking rate is ${r.bookingRate.toFixed(1)}% — at or above 80% benchmark`;
+      responseLagBadge.textContent = 'OK';
+      responseLagBadge.style.background = 'var(--green-bg)';
+      responseLagBadge.style.color = 'var(--green)';
+      responseLagIcon.style.background = 'var(--green-bg)';
     }
 
     // Close Rate
@@ -358,6 +372,23 @@ import Footer from '../components/Footer.astro';
       closeRateBadge.textContent = 'LEAKING';
       closeRateBadge.style.background = 'var(--orange-bg)';
       closeRateBadge.style.color = 'var(--orange)';
+    }
+
+    // Review Gap
+    const reviewGapText = document.getElementById('reviewGapText');
+    const reviewGapBadge = document.getElementById('reviewGapBadge');
+    const reviewGapIcon = document.getElementById('reviewGapIcon');
+    reviewGapText.textContent = `${r.actualReviews} reviews captured, ${r.missingReviews} missing (${r.potentialReviews} possible with automation)`;
+    if (r.missingReviews > 0) {
+      reviewGapBadge.textContent = `${r.missingReviews} MISSING`;
+      reviewGapBadge.style.background = 'var(--orange-bg)';
+      reviewGapBadge.style.color = 'var(--orange)';
+      reviewGapIcon.style.background = 'var(--orange-bg)';
+    } else {
+      reviewGapBadge.textContent = 'OK';
+      reviewGapBadge.style.background = 'var(--green-bg)';
+      reviewGapBadge.style.color = 'var(--green)';
+      reviewGapIcon.style.background = 'var(--green-bg)';
     }
 
     // Show results section
@@ -405,8 +436,8 @@ import Footer from '../components/Footer.astro';
       bookingDollarLeak: r.bookingDollarLeak,
       closeRate: r.closeRate,
       graveyardValue: r.graveyardValue,
-      speedToLeadLeak: r.speedToLeadLeak,
-      speedLeakValue: r.speedLeakValue,
+      responseLagLeak: r.responseLagLeak,
+      reviewGapValue: r.reviewGapValue,
       totalBleed: r.totalBleed,
     };
 

@@ -10,14 +10,14 @@
     <!-- Header -->
     <tr>
       <td style="text-align:center;padding-bottom:32px;">
-        <span style="font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;color:#0A3A68;">Plenum<em style="font-style:normal;color:#1a1f2f;">AI</em></span><span style="color:#ff8c42;font-weight:500;font-size:1.2rem;">Systems</span>
+        <span style="font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;color:#0A3A68;">Plenum<em style="font-style:normal;color:#1a1f2b;">AI</em></span><span style="color:#ff8c42;font-weight:500;font-size:1.2rem;">Systems</span>
         <div style="font-size:0.7rem;color:#718096;text-transform:uppercase;letter-spacing:0.1em;margin-top:4px;">Leaky Bucket Audit Report</div>
       </td>
     </tr>
 
     <!-- Greeting -->
     <tr>
-      <td style="background:#ffffff;border-radius:16px;padding:32px;border:1px solid #e2e8f0;">
+      <td style="background:#ffffff;border-radius:16px;padding:32px;border:1px solid rgba(0,0,0,0.08);">
         <h1 style="font-size:1.5rem;color:#1a1f2f;margin:0 0 8px;">Your Leaky Bucket Audit</h1>
         <p style="color:#4a5568;margin:0 0 20px;">Hi {{name}}, here's your personalized revenue leak report based on the numbers you provided.</p>
 
@@ -25,26 +25,26 @@
         <h2 style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:#718096;margin:0 0 12px;">Revenue Leaks Found</h2>
         <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
           <tr>
-            <td width="48%" style="background:#fff7f0;border-left:4px solid #ff8c42;border-radius:8px;padding:16px;vertical-align:top;">
-              <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.5px;color:#718096;margin-bottom:4px;">Missed Calls Leak</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:#ff8c42;font-weight:700;">{{bookingDollarLeak}}/mo</div>
+            <td width="48%" style="background:rgba(74,158,255,0.06);border-left:4px solid #4a9eff;border-radius:8px;padding:16px;vertical-align:top;">
+              <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.5px;color:#718096;margin-bottom:4px;">Response Lag</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:#4a9eff;font-weight:700;">{{responseLagDollarLeak}}/mo</div>
             </td>
             <td width="4%"></td>
-            <td width="48%" style="background:#f0f7ff;border-left:4px solid #4a9eff;border-radius:8px;padding:16px;vertical-align:top;">
-              <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.5px;color:#718096;margin-bottom:4px;">Dead Estimate Graveyard</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:#4a9eff;font-weight:700;">{{graveyardValue}}/mo</div>
+            <td width="48%" style="background:rgba(74,158,255,0.06);border-left:4px solid #4a9eff;border-radius:8px;padding:16px;vertical-align:top;">
+              <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.5px;color:#718096;margin-bottom:4px;">Estimated Review Gap</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:#4a9eff;font-weight:700;">{{reviewGapValue}}/mo</div>
             </td>
           </tr>
           <tr><td colspan="3" style="height:12px;"></td></tr>
           <tr>
-            <td width="48%" style="background:#f5f0ff;border-left:4px solid #9b59b6;border-radius:8px;padding:16px;vertical-align:top;">
-              <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.5px;color:#718096;margin-bottom:4px;">Response Lag</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:#9b59b6;font-weight:700;">{{responseLagDollarLeak}}/mo</div>
+            <td width="48%" style="background:rgba(255,140,66,0.06);border-left:4px solid #ff8c42;border-radius:8px;padding:16px;vertical-align:top;">
+              <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.5px;color:#718096;margin-bottom:4px;">Missed Calls Leak</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:#ff8c42;font-weight:700;">{{bookingDollarLeak}}/mo</div>
             </td>
             <td width="4%"></td>
-            <td width="48%" style="background:#f0f9fd;border-left:4px solid #3498db;border-radius:8px;padding:16px;vertical-align:top;">
-              <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.5px;color:#718096;margin-bottom:4px;">Estimated Review Gap</div>
-              <div style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:#3498db;font-weight:700;">{{reviewGapValue}}/mo</div>
+            <td width="48%" style="background:rgba(255,140,66,0.06);border-left:4px solid #ff8c42;border-radius:8px;padding:16px;vertical-align:top;">
+              <div style="font-size:0.65rem;text-transform:uppercase;letter-spacing:0.5px;color:#718096;margin-bottom:4px;">Dead Estimate Graveyard</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:#ff8c42;font-weight:700;">{{graveyardValue}}/mo</div>
             </td>
           </tr>
         </table>
@@ -52,7 +52,7 @@
         <!-- Total -->
         <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
           <tr>
-            <td style="background:#f5f0ff;border-left:4px solid #9b59b6;border-radius:8px;padding:20px;">
+            <td style="background:rgba(155,89,182,0.06);border-left:4px solid #9b59b6;border-radius:8px;padding:20px;">
               <div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:0.5px;color:#718096;margin-bottom:4px;">Total Monthly Conversion Gap</div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:2rem;color:#9b59b6;font-weight:800;">{{totalBleed}}/mo</div>
             </td>
@@ -63,28 +63,28 @@
         <h2 style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:#718096;margin:0 0 12px;">Key Metrics</h2>
         <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
           <tr>
-            <td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
+            <td style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.08);">
               <span style="font-size:0.85rem;color:#4a5568;">Booking Rate</span>
             </td>
-            <td style="padding:10px 0;border-bottom:1px solid #e2e8f0;text-align:right;">
-              <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#e74c3c;">{{bookingRate}}%</span>
+            <td style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.08);text-align:right;">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#e74c3c;">{{bookingRate}}</span>
               <span style="font-size:0.75rem;color:#718096;margin-left:8px;">(benchmark: 80%+)</span>
             </td>
           </tr>
           <tr>
-            <td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
+            <td style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.08);">
               <span style="font-size:0.85rem;color:#4a5568;">Close Rate</span>
             </td>
-            <td style="padding:10px 0;border-bottom:1px solid #e2e8f0;text-align:right;">
-              <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#e74c3c;">{{closeRate}}%</span>
+            <td style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.08);text-align:right;">
+              <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#e74c3c;">{{closeRate}}</span>
               <span style="font-size:0.75rem;color:#718096;margin-left:8px;">(benchmark: 45%)</span>
             </td>
           </tr>
           <tr>
-            <td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
+            <td style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.08);">
               <span style="font-size:0.85rem;color:#4a5568;">Reviews Captured</span>
             </td>
-            <td style="padding:10px 0;border-bottom:1px solid #e2e8f0;text-align:right;">
+            <td style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.08);text-align:right;">
               <span style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#1a1f2f;">{{actualReviews}}</span>
               <span style="font-size:0.75rem;color:#718096;margin-left:8px;">({{potentialReviews}} possible with automation)</span>
             </td>

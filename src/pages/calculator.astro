@@ -397,14 +397,15 @@ import Footer from '../components/Footer.astro';
     emailSubmitted = true;
     inlineEmail.innerHTML = '<p style="color:var(--text);font-weight:600;">⏳ Sending your report...</p>';
 
+    const r = calculate();
     const resultsPayload = {
-      bookingRate: results.bookingRate || 0,
-      bookingDollarLeak: results.bookingDollarLeak || 0,
-      closeRate: results.closeRate || 0,
-      graveyardValue: results.graveyardValue || 0,
-      speedToLeadLeak: results.speedToLeadLeak || false,
-      speedLeakValue: results.speedLeakValue || 0,
-      totalBleed: results.totalBleed || 0,
+      bookingRate: r.bookingRate,
+      bookingDollarLeak: r.bookingDollarLeak,
+      closeRate: r.closeRate,
+      graveyardValue: r.graveyardValue,
+      speedToLeadLeak: r.speedToLeadLeak,
+      speedLeakValue: r.speedLeakValue,
+      totalBleed: r.totalBleed,
     };
 
     try {

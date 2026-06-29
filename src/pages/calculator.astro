@@ -264,7 +264,7 @@ import Footer from '../components/Footer.astro';
     const estimates = parseFloat(document.getElementById('estimates').value) || 0;
     const sold = parseFloat(document.getElementById('sold').value) || 0;
     const ticket = parseFloat(document.getElementById('ticket').value) || 0;
-    // No checkbox needed — response lag is inferred from booking rate
+    const spend = parseFloat(document.getElementById('spend').value) || 0;
 
     // Booking Rate
     const bookingRate = leads > 0 ? (booked / leads) * 100 : 0;
@@ -297,15 +297,20 @@ import Footer from '../components/Footer.astro';
     const missingReviews = potentialReviews - actualReviews;
     const reviewGapValue = missingReviews * 200;
 
+    // Cost metrics
+    const costPerLead = leads > 0 ? spend / leads : 0;
+    const costPerClose = sold > 0 ? spend / sold : 0;
+
     // Total Bleed
     const totalBleed = bookingDollarLeak + graveyardValue + responseLagLeak + reviewGapValue;
 
     return {
-      leads, booked, estimates, sold, ticket,
+      leads, booked, estimates, sold, ticket, spend,
       bookingRate, bookingDollarLeak,
       closeRate, graveyardValue,
       bookingGap, responseLagLeak,
       actualReviews, potentialReviews, missingReviews, reviewGapValue,
+      costPerLead, costPerClose,
       totalBleed
     };
   }
@@ -437,6 +442,7 @@ import Footer from '../components/Footer.astro';
       name: name,
       email: email,
       phone: phone || '',
+      monthlySpend: fmtMoney(r.spend),
       bookingRate: fmtPct(r.bookingRate),
       bookingDollarLeak: fmtMoney(r.bookingDollarLeak),
       closeRate: fmtPct(r.closeRate),
@@ -447,6 +453,8 @@ import Footer from '../components/Footer.astro';
       missingReviews: r.missingReviews,
       actualReviews: r.actualReviews,
       potentialReviews: r.potentialReviews,
+      costPerLead: fmtMoney(r.costPerLead),
+      costPerClose: fmtMoney(r.costPerClose),
       totalBleed: fmtMoney(r.totalBleed),
     };
 

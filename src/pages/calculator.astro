@@ -267,18 +267,20 @@ import Footer from '../components/Footer.astro';
     // Booking Rate
     const bookingRate = leads > 0 ? (booked / leads) * 100 : 0;
 
-    // Booking Dollar Leak
+    // Booking Dollar Leak: how much revenue is lost from leads that SHOULD have been booked but weren't
     const targetBooked = leads * 0.8;
-    const bookingDollarLeak = Math.abs((targetBooked - Math.max(booked, targetBooked)) * ticket);
+    const missedBooked = Math.max(0, targetBooked - booked);
+    const bookingDollarLeak = missedBooked * ticket;
+
+    // Dead Estimate Graveyard: unclosed estimates at average system cost ($9,000)
+    const targetSold = estimates * 0.45;
+    const missedSold = Math.max(0, targetSold - sold);
+    const graveyardValue = missedSold * 9000;
 
     // Close Rate
     const closeRate = estimates > 0 ? (sold / estimates) * 100 : 0;
 
-    // Graveyard Value
-    const targetSold = estimates * 0.45;
-    const graveyardValue = Math.abs((targetSold - Math.max(sold, targetSold)) * 9000);
-
-    // Speed to Lead Leak
+    // Speed to Lead Leak: 15% of leads go cold from slow response
     const speedToLeadLeak = !speedChecked;
     const speedLeakValue = speedToLeadLeak ? leads * 0.15 * ticket : 0;
 

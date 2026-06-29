@@ -408,7 +408,7 @@ import Footer from '../components/Footer.astro';
     };
 
     try {
-      await fetch('https://cloud.activepieces.com/api/v1/webhooks/F395YJLAxb3CyhQV5Zmb9', {
+      await fetch('https://cloud.activepieces.com/api/v1/webhooks/F395YJLAxb3CyhQV5Zmb9/test', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, phone, results: resultsPayload }),

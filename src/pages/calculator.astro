@@ -81,7 +81,7 @@ import Footer from '../components/Footer.astro';
           <span style="font-size:0.75rem;color:var(--text3);margin-top:4px;display:block;">Total monthly marketing investment</span>
         </div>
 
-        <button id="calcBtn" class="btn btn-primary" style="font-size:1.05rem;padding:14px 28px;align-self:center;width:100%;justify-content:center;">
+        <button id="calcBtn" class="btn btn-primary" style="font-size:1.05rem;padding:14px 28px;align-self:center;width:100%;display:flex;justify-content:center;align-items:center;">
           → Calculate My Revenue Leaks
         </button>
 
@@ -124,36 +124,36 @@ import Footer from '../components/Footer.astro';
 
       <!-- Bleed Dashboard -->
       <div class="bleed-dashboard" style="margin-top:32px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+        <div class="card" style="border-left:4px solid var(--blue);">
+          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Response Lag</div>
+          <div id="responseLagVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:var(--blue);font-weight:600;">$0</div>
+          <div style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Inferred from booking rate gap</div>
+        </div>
+
+        <div class="card" style="border-left:4px solid var(--blue);">
+          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Estimated Review Gap</div>
+          <div id="reviewGapVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:var(--blue);font-weight:600;">$0</div>
+          <div id="reviewGapSub" style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Missing reviews = lost local visibility</div>
+        </div>
+
         <div class="card" style="border-left:4px solid var(--orange);">
           <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Missed Calls Leak</div>
           <div id="bookingLeakVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:var(--orange);font-weight:600;">$0</div>
           <div style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Revenue lost from unbooked calls</div>
         </div>
 
-        <div class="card" style="border-left:4px solid var(--blue);">
+        <div class="card" style="border-left:4px solid var(--orange);">
           <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Dead Estimate Graveyard</div>
-          <div id="graveyardVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:var(--blue);font-weight:600;">$0</div>
+          <div id="graveyardVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:var(--orange);font-weight:600;">$0</div>
           <div style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Revenue left in "Unclosed Quote" desert</div>
-        </div>
-
-        <div class="card" style="border-left:4px solid #9b59b6;">
-          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Response Lag</div>
-          <div id="responseLagVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:#9b59b6;font-weight:600;">$0</div>
-          <div style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Inferred from booking rate gap</div>
-        </div>
-
-        <div class="card" style="border-left:4px solid #3498db;">
-          <div style="font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Estimated Review Gap</div>
-          <div id="reviewGapVal" style="font-family:'JetBrains Mono',monospace;font-size:1.6rem;color:#3498db;font-weight:600;">$0</div>
-          <div id="reviewGapSub" style="font-size:0.8rem;color:var(--text2);margin-top:6px;">Missing reviews = lost local visibility</div>
         </div>
       </div>
 
       <!-- Total -->
       <div style="margin-top:16px;">
-        <div class="card" style="border-left:4px solid var(--orange);background:var(--surface-2);">
+        <div class="card" style="border-left:4px solid #9b59b6;background:var(--surface-2);">
           <div style="font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text3);margin-bottom:8px;">Total Monthly Conversion Gap</div>
-          <div id="totalBleedVal" style="font-family:'JetBrains Mono',monospace;font-size:2.2rem;color:var(--orange);font-weight:700;">$0</div>
+          <div id="totalBleedVal" style="font-family:'JetBrains Mono',monospace;font-size:2.2rem;color:#9b59b6;font-weight:700;">$0</div>
           <div style="font-size:0.85rem;color:var(--text2);margin-top:6px;">Every month, this much revenue slips through the cracks</div>
         </div>
       </div>
@@ -334,8 +334,8 @@ import Footer from '../components/Footer.astro';
       bookingRateBadge.style.color = 'var(--green)';
     } else {
       bookingRateBadge.textContent = 'LEAKING';
-      bookingRateBadge.style.background = 'var(--orange-bg)';
-      bookingRateBadge.style.color = 'var(--orange)';
+      bookingRateBadge.style.background = 'rgba(231,76,60,0.12)';
+      bookingRateBadge.style.color = '#e74c3c';
     }
 
     // Response Lag (inferred from booking rate gap)
@@ -345,9 +345,9 @@ import Footer from '../components/Footer.astro';
     if (r.bookingGap > 0) {
       responseLagText.textContent = `Booking rate is ${r.bookingRate.toFixed(1)}% — ${r.bookingGap.toFixed(1)}% below 80% benchmark. Slow response is likely a factor.`;
       responseLagBadge.textContent = 'LEAKING';
-      responseLagBadge.style.background = 'var(--orange-bg)';
-      responseLagBadge.style.color = 'var(--orange)';
-      responseLagIcon.style.background = 'var(--orange-bg)';
+      responseLagBadge.style.background = 'rgba(231,76,60,0.12)';
+      responseLagBadge.style.color = '#e74c3c';
+      responseLagIcon.style.background = 'rgba(231,76,60,0.12)';
     } else {
       responseLagText.textContent = `Booking rate is ${r.bookingRate.toFixed(1)}% — at or above 80% benchmark`;
       responseLagBadge.textContent = 'OK';
@@ -366,8 +366,8 @@ import Footer from '../components/Footer.astro';
       closeRateBadge.style.color = 'var(--green)';
     } else {
       closeRateBadge.textContent = 'LEAKING';
-      closeRateBadge.style.background = 'var(--orange-bg)';
-      closeRateBadge.style.color = 'var(--orange)';
+      closeRateBadge.style.background = 'rgba(231,76,60,0.12)';
+      closeRateBadge.style.color = '#e74c3c';
     }
 
     // Review Gap
@@ -377,9 +377,9 @@ import Footer from '../components/Footer.astro';
     reviewGapText.textContent = `${r.actualReviews} reviews captured, ${r.missingReviews} missing (${r.potentialReviews} possible with automation)`;
     if (r.missingReviews > 0) {
       reviewGapBadge.textContent = `${r.missingReviews} MISSING`;
-      reviewGapBadge.style.background = 'var(--orange-bg)';
-      reviewGapBadge.style.color = 'var(--orange)';
-      reviewGapIcon.style.background = 'var(--orange-bg)';
+      reviewGapBadge.style.background = 'rgba(231,76,60,0.12)';
+      reviewGapBadge.style.color = '#e74c3c';
+      reviewGapIcon.style.background = 'rgba(231,76,60,0.12)';
     } else {
       reviewGapBadge.textContent = 'OK';
       reviewGapBadge.style.background = 'var(--green-bg)';

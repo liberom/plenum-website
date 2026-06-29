@@ -342,14 +342,15 @@ import Footer from '../components/Footer.astro';
     const responseLagText = document.getElementById('responseLagText');
     const responseLagBadge = document.getElementById('responseLagBadge');
     const responseLagIcon = document.getElementById('responseLagIcon');
+    const leadsLostToSlowness = Math.round((r.bookingGap / 10) * 0.07 * r.leads);
     if (r.bookingGap > 0) {
-      responseLagText.textContent = `Booking rate is ${r.bookingRate.toFixed(1)}% — ${r.bookingGap.toFixed(1)}% below 80% benchmark. Slow response is likely a factor.`;
+      responseLagText.textContent = `~${leadsLostToSlowness} leads/month lost to slow response (${r.bookingGap.toFixed(1)}% booking gap)`;
       responseLagBadge.textContent = 'LEAKING';
       responseLagBadge.style.background = 'rgba(231,76,60,0.12)';
       responseLagBadge.style.color = '#e74c3c';
       responseLagIcon.style.background = 'rgba(231,76,60,0.12)';
     } else {
-      responseLagText.textContent = `Booking rate is ${r.bookingRate.toFixed(1)}% — at or above 80% benchmark`;
+      responseLagText.textContent = `Response time is on par with top performers`;
       responseLagBadge.textContent = 'OK';
       responseLagBadge.style.background = 'var(--green-bg)';
       responseLagBadge.style.color = 'var(--green)';
@@ -432,8 +433,12 @@ import Footer from '../components/Footer.astro';
       bookingDollarLeak: r.bookingDollarLeak,
       closeRate: r.closeRate,
       graveyardValue: r.graveyardValue,
-      responseLagLeak: r.responseLagLeak,
+      responseLagDollarLeak: r.responseLagLeak,
+      responseLagPercent: r.bookingGap,
       reviewGapValue: r.reviewGapValue,
+      missingReviews: r.missingReviews,
+      actualReviews: r.actualReviews,
+      potentialReviews: r.potentialReviews,
       totalBleed: r.totalBleed,
     };
 
